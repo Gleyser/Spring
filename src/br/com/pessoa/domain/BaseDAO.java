@@ -28,7 +28,16 @@ public class BaseDAO {
 		BaseDAO db = new BaseDAO();
 		
 		Connection conn = db.getConnection();
-		System.out.println(conn);
+		//System.out.println(conn);
+		CarroDAO carrodao = new CarroDAO();
+		Carro carro;
+		try {
+			carro = carrodao.getCarroById(30L);
+			System.out.println(carro.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

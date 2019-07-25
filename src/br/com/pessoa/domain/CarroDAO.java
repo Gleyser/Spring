@@ -38,7 +38,7 @@ public class CarroDAO extends BaseDAO {
 		return carro;
 	}
 	
-	public List<Carro> getCarros(){
+	public List<Carro> getCarros() throws Exception{
 		List<Carro> carros = new ArrayList<Carro>();		
 		try {
 			Connection conn = super.getConnection();
@@ -51,14 +51,114 @@ public class CarroDAO extends BaseDAO {
 			rs.close();
 			stmt.close();
 			conn.close();
+			return carros;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+			}
 		
-		return carros;
+		throw new Exception("Nenhum carro nao encontrado"); 
 		
 	}
 	
+	public Carro getCarroById(Long id) throws Exception {		
+		try {
+			Connection conn = super.getConnection();
+			// Aqui eh possivel fazer de duas formas - MODO 1
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE ID="+id);
+			
+			// Aqui eh possivel fazer de duas formas - MODO 2
+			// PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE ID=?");
+			// stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			// Se a query retornar algo, temos o carro. Se não retornar vai cair na excecao.
+			if (rs.next()) {
+				Carro carro = createCarro(rs);				
+				rs.close();
+				stmt.close();
+				conn.close();
+				return carro;
+			} 		
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}
+		
+		throw new Exception("Carro nao encontrado"); 
+		
+		
+	}
 	
+	public List<Carro> findByName(String name) throws Exception {		
+		try {
+			Connection conn = super.getConnection();
+			// Aqui eh possivel fazer de duas formas - MODO 1
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE LOWER(NOME)="+ name.toLowerCase());
+			
+			// Aqui eh possivel fazer de duas formas - MODO 2
+			// PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE LOWER(NOME) like ?");
+			// stmt.setLong(1, "%" + name.toLowerCase() + "%");
+			ResultSet rs = stmt.executeQuery();
+			
+			// Se a query retornar algo, temos o carro. Se não retornar vai cair na excecao.
+			if (rs.next()) {
+				Carro carro = createCarro(rs);
+				List<Carro> carros = new ArrayList<Carro>();
+				carros.add(carro);
+				while (rs.next()) {
+					carros.add(createCarro(rs));
+				}
+				rs.close();
+				stmt.close();
+				conn.close();
+				return carros;
+			} 		
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}
+		
+		throw new Exception("Nenhum carro nao encontrado"); 
+		
+		
+	}
+	
+	public List<Carro> findByTipo(String tipo) throws Exception {		
+		try {
+			Connection conn = super.getConnection();
+			// Aqui eh possivel fazer de duas formas - MODO 1
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE TIPO="+ tipo);
+			
+			// Aqui eh possivel fazer de duas formas - MODO 2
+			// PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE TIPO=?");
+			// stmt.setLong(1, tipo);
+			ResultSet rs = stmt.executeQuery();
+			
+			// Se a query retornar algo, temos o carro. Se não retornar vai cair na excecao.
+			// REPETIÇÃO DE CÓDIGO - MODULARIZAR
+			if (rs.next()) {
+				Carro carro = createCarro(rs);
+				List<Carro> carros = new ArrayList<Carro>();
+				carros.add(carro);
+				while (rs.next()) {
+					carros.add(createCarro(rs));
+				}
+				rs.close();
+				stmt.close();
+				conn.close();
+				return carros;
+			} 		
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}
+		
+		throw new Exception("Nenhum carro nao encontrado"); 
+		
+		
+	}
 }
