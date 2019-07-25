@@ -204,4 +204,28 @@ public class CarroDAO extends BaseDAO {
 		}
 		
 	}
+	
+	public boolean deleteCarro(Long id) throws Exception {
+		try {
+			Connection conn = super.getConnection();
+			// Aqui eh possivel fazer de duas formas - MODO 1
+			PreparedStatement stmt = conn.prepareStatement("DELETE FROM CARRO WHERE ID="+id);
+			
+			// Aqui eh possivel fazer de duas formas - MODO 2
+			// PreparedStatement stmt = conn.prepareStatement("DELETE FROM CARRO WHERE ID=?");
+			// stmt.setLong(1, id);
+			int count = stmt.executeUpdate();
+			// Se a query retornar maior que 0, eh pq removeu, logo TRUE.
+			// Se a query retornar menor/igual que 0, eh pq nao removeu, logo FALSE.
+			stmt.close();
+			conn.close();
+			return count > 0;				
+		} 	
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		throw new Exception("Não foi possível remover com o if fornecido"); 
+	}
 }
