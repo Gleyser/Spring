@@ -40,7 +40,7 @@ public class PessoaB extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nome = req.getParameter("nome");
 		String sobrenome = req.getParameter("sobrenome");
-		resp.getWriter().print("O nome recebido como parâmetro eh: " + nome + " e o sobrenome: " + sobrenome);
+		resp.getWriter().print("O nome recebido como parametro eh: " + nome + " e o sobrenome: " + sobrenome);
 	}
 	
 	@Override
