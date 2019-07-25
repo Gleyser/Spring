@@ -29,8 +29,7 @@ public class PessoaB extends HttpServlet {
 	 */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().print("hello GET ");
 	}
 
 	/**
@@ -42,6 +41,16 @@ public class PessoaB extends HttpServlet {
 		String nome = req.getParameter("nome");
 		String sobrenome = req.getParameter("sobrenome");
 		resp.getWriter().print("O nome recebido como parâmetro eh: " + nome + " e o sobrenome: " + sobrenome);
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.getWriter().print("hello PUT");
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.getWriter().print("hello DELETE");
 	}
 
 }
