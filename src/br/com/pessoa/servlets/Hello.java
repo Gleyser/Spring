@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+// MySQL no prompt: mysql -u root -p
 /**
  * Servlet implementation class Hello
  */
