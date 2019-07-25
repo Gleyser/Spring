@@ -99,7 +99,7 @@ public class CarroDAO extends BaseDAO {
 			
 			// Aqui eh possivel fazer de duas formas - MODO 2
 			// PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CARRO WHERE LOWER(NOME) like ?");
-			// stmt.setLong(1, "%" + name.toLowerCase() + "%");
+			// stmt.setString(1, "%" + name.toLowerCase() + "%");
 			ResultSet rs = stmt.executeQuery();
 			
 			// Se a query retornar algo, temos o carro. Se não retornar vai cair na excecao.
@@ -159,6 +159,49 @@ public class CarroDAO extends BaseDAO {
 		
 		throw new Exception("Nenhum carro nao encontrado"); 
 		
+		
+	}
+	
+	public void save(Carro carro) {
+		try {
+			Connection conn = super.getConnection();
+			PreparedStatement stmt;
+			if (carro.getId() == null) {
+				// Insert
+				stmt = conn.prepareStatement("INSERT INTO CARRO(NOME, DESCRICAO, URL_FOTO, URL_VIDEO, LATITUDE, LONGITUDE, TIPO) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			} else {
+				// Update
+				stmt = conn.prepareStatement("UPDATE CARRO SET NOME=?, DESCRICAO=?, URL_FOTO=?, URL_VIDEO=?, LATITUDE=?, LONGITUDE=?, TIPO=? WHERE ID=?)");
+				stmt.setLong(8, carro.getId());						
+			}
+			// como temos muitos parametros, eh melhor passsar os dados pelo setString/setLong
+			stmt.setString(1, carro.getNome());
+			stmt.setString(2, carro.getDescricao());
+			stmt.setString(3, carro.getUrlFoto());
+			stmt.setString(4, carro.getUrlVideo());
+			stmt.setString(5, carro.getLatitude());
+			stmt.setString(6, carro.getLongitude());
+			stmt.setString(7, carro.getTipo());
+			
+			if (stmt.executeUpdate() == 0) {
+				throw new SQLException("Erro ao inserir o carro"); 
+			}
+			else {
+				ResultSet rs = stmt.getGeneratedKeys();
+				if (rs.next()) {
+					Long id = rs.getLong(1);
+					carro.setId(id);
+				}
+				rs.close();
+			}			
+			
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }
