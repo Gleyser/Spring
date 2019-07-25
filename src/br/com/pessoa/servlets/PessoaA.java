@@ -8,16 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Hello
+ * Servlet implementation class PessoaA
+ * 
+ * Nesse servlet os parametros são recebidos pela URL usando o método getParameter(string) da classe HttpServletRequest
+ * Exemplo de URL: http://localhost:8080/ProjetoWeb/pessoaA?nome=gleyser&sobrenome=guimaraes
  */
-@WebServlet("/hello")
-public class Hello extends HttpServlet {
+@WebServlet("/pessoaA")
+public class PessoaA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Hello() {
+    public PessoaA() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -25,8 +28,12 @@ public class Hello extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().print("iniciando servlet");;
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// O sobrenome recebido como parâmetro eh: " + sobrenome
+		String nome = req.getParameter("nome");
+		String sobrenome = req.getParameter("sobrenome");
+		resp.getWriter().print("O nome recebido como parâmetro eh: " + nome + " e o sobrenome: " + sobrenome);
+		
 	}
 
 	/**
