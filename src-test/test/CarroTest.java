@@ -43,6 +43,8 @@ public class CarroTest extends TestCase {
 	public void testSalvaCarro() {
 		try {
 			System.out.println(this.carroService.getCarros().size());
+			assertTrue(this.carroService.getCarros().size() == 35);
+			assertTrue(this.carroService.delete(35L));
 			assertTrue(this.carroService.getCarros().size() == 34);
 			// testando inserir
 			Carro carro1 = new Carro();
@@ -57,10 +59,10 @@ public class CarroTest extends TestCase {
 			// o numero aumentou
 			assertTrue(this.carroService.getCarros().size() == 35);
 			try {
-				Carro carro = this.carroService.getCarro(35L);
+				Carro carro = this.carroService.getCarro(36L);
 				assertEquals("fusca", carro.getNome());
 				assertEquals("classicos", carro.getTipo());
-				assertEquals(35L, carro.getId(), 0.1);
+				assertEquals(36L, carro.getId(), 0.1);
 				
 				// testando a atualização
 				carro.setNome("caminhao");
@@ -71,7 +73,8 @@ public class CarroTest extends TestCase {
 				assertTrue(this.carroService.getCarros().size() == 35);
 				assertEquals("caminhao", carro.getNome());
 				assertEquals("grande", carro.getTipo());
-				assertEquals(35L, carro.getId(), 0.1);
+				assertEquals(36L, carro.getId(), 0.1);
+				
 				
 				
 			} catch (Exception e) {
