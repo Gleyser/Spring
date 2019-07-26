@@ -162,7 +162,7 @@ public class CarroDAO extends BaseDAO {
 		
 	}
 	
-	public void save(Carro carro) {
+	public void save(Carro carro) throws Exception {
 		try {
 			Connection conn = super.getConnection();
 			PreparedStatement stmt;
@@ -171,7 +171,7 @@ public class CarroDAO extends BaseDAO {
 				stmt = conn.prepareStatement("INSERT INTO CARRO(NOME, DESCRICAO, URL_FOTO, URL_VIDEO, LATITUDE, LONGITUDE, TIPO) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			} else {
 				// Update
-				stmt = conn.prepareStatement("UPDATE CARRO SET NOME=?, DESCRICAO=?, URL_FOTO=?, URL_VIDEO=?, LATITUDE=?, LONGITUDE=?, TIPO=? WHERE ID=?)");
+				stmt = conn.prepareStatement("UPDATE CARRO SET NOME=?, DESCRICAO=?, URL_FOTO=?, URL_VIDEO=?, LATITUDE=?, LONGITUDE=?, TIPO=? WHERE ID=?");
 				stmt.setLong(8, carro.getId());						
 			}
 			// como temos muitos parametros, eh melhor passsar os dados pelo setString/setLong
@@ -186,7 +186,7 @@ public class CarroDAO extends BaseDAO {
 			if (stmt.executeUpdate() == 0) {
 				throw new SQLException("Erro ao inserir o carro"); 
 			}
-			else {
+			if (carro.getId() == null) {
 				ResultSet rs = stmt.getGeneratedKeys();
 				if (rs.next()) {
 					Long id = rs.getLong(1);
