@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.pessoa.domain.CarroService;
+import br.com.pessoa.domain.ListaCarros;
 import br.com.pessoa.domain.Carro;
+import br.com.pessoa.util.JAXBUtil;
+import br.com.pessoa.util.ServletUtil;
 
 /**
  * Servlet implementation class CarrosServlet
@@ -34,8 +37,12 @@ public class CarrosServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			List<Carro> carros = carroService.getCarros();
+			ListaCarros lista = new ListaCarros();
+			lista.setCarros(carros);
 			String carrosString = carros.toString();
-			response.getWriter().write(carrosString);
+			String xml = JAXBUtil.toXML(lista);
+			ServletUtil.writeXML(response, xml);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
