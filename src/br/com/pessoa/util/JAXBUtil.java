@@ -6,6 +6,10 @@ import javax.management.RuntimeErrorException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.stream.XMLStreamWriter;
+
+import org.codehaus.jettison.mapped.MappedNamespaceConvention;
+import org.codehaus.jettison.mapped.MappedXMLStreamWriter;
 
 import br.com.pessoa.domain.Carro;
 import br.com.pessoa.domain.ListaCarros;
@@ -35,11 +39,28 @@ public class JAXBUtil {
 			return xml;
 			
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}
+	}
+		
+		public static String toJSON(Object object) {		
+			try {
+				StringWriter writer = new StringWriter();
+				Marshaller m = context.createMarshaller();
+				MappedNamespaceConvention con = new MappedNamespaceConvention();
+				XMLStreamWriter xmlStreamWriter = new MappedXMLStreamWriter(con, writer);
+				m.marshal(object, xmlStreamWriter);	
+				String json = writer.toString();
+				return json;
+				
+			} catch (JAXBException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
 		}
 		
 	}
 
-}
+

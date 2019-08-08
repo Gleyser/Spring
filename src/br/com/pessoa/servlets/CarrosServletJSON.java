@@ -18,20 +18,21 @@ import br.com.pessoa.util.ServletUtil;
 /**
  * Servlet implementation class CarrosServlet
  */
-@WebServlet("/carros")
-public class CarrosServlet extends HttpServlet {
+@WebServlet("/carrosEmJSON")
+public class CarrosServletJSON extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CarroService carroService = new CarroService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CarrosServlet() {
+    public CarrosServletJSON() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
+	 * O GET de /carrosEmXML retorna uma lista de carros em XML criada usando o JAXBUtil 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,11 +41,10 @@ public class CarrosServlet extends HttpServlet {
 			ListaCarros lista = new ListaCarros();
 			lista.setCarros(carros);
 			String carrosString = carros.toString();
-			String xml = JAXBUtil.toXML(lista);
-			ServletUtil.writeXML(response, xml);
+			String xml = JAXBUtil.toJSON(lista);
+			ServletUtil.writeJSON(response, xml);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
