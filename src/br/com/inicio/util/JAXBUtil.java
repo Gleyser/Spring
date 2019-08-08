@@ -1,4 +1,4 @@
-package br.com.pessoa.util;
+package br.com.inicio.util;
 
 import java.io.StringWriter;
 
@@ -11,8 +11,8 @@ import javax.xml.stream.XMLStreamWriter;
 import org.codehaus.jettison.mapped.MappedNamespaceConvention;
 import org.codehaus.jettison.mapped.MappedXMLStreamWriter;
 
-import br.com.pessoa.domain.Carro;
-import br.com.pessoa.domain.ListaCarros;
+import br.com.inicio.domain.Carro;
+import br.com.inicio.domain.ListaCarros;
 
 public class JAXBUtil {
 	private static JAXBUtil instance;

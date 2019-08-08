@@ -1,4 +1,4 @@
-package br.com.pessoa.servlets;
+package br.com.inicio.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

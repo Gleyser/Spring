@@ -1,4 +1,4 @@
-package br.com.pessoa.domain;
+package br.com.inicio.domain;
 
 import java.io.Serializable;
 import java.util.List;

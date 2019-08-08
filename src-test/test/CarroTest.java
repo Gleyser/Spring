@@ -2,8 +2,8 @@ package test;
 
 import org.junit.Test;
 
-import br.com.pessoa.domain.Carro;
-import br.com.pessoa.domain.CarroService;
+import br.com.inicio.domain.Carro;
+import br.com.inicio.domain.CarroService;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 

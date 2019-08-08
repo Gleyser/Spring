@@ -1,4 +1,4 @@
-package br.com.pessoa.util;
+package br.com.inicio.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

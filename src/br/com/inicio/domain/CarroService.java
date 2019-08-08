@@ -1,4 +1,4 @@
-package br.com.pessoa.domain;
+package br.com.inicio.domain;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

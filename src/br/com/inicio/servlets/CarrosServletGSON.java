@@ -1,4 +1,4 @@
-package br.com.pessoa.servlets;
+package br.com.inicio.servlets;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import br.com.pessoa.domain.CarroService;
-import br.com.pessoa.domain.ListaCarros;
-import br.com.pessoa.domain.Carro;
-import br.com.pessoa.util.JAXBUtil;
-import br.com.pessoa.util.RegexUtil;
-import br.com.pessoa.util.ServletUtil;
+import br.com.inicio.domain.Carro;
+import br.com.inicio.domain.CarroService;
+import br.com.inicio.domain.ListaCarros;
+import br.com.inicio.util.JAXBUtil;
+import br.com.inicio.util.RegexUtil;
+import br.com.inicio.util.ServletUtil;
 
 /**
  * Servlet implementation class CarrosServlet
