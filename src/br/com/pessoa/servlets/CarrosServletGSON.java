@@ -110,5 +110,30 @@ public class CarrosServletGSON extends HttpServlet {
 		return carro;
 		
 	}
+	
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		try {
+			String requestUri = request.getRequestURI();
+			Long id = RegexUtil.matchId(requestUri);
+			if (id != null) {
+				carroService.delete(id);
+				response.sendError(200, "excluído com sucesso");
+			}
+			
+			else {
+				response.sendError(404, "URl inválida");
+			}
+		} catch (Exception e) {
+			response.sendError(404, e.getMessage());
+		}
+		
+		
+	}
 
 }
