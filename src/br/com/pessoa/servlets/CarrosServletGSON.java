@@ -80,8 +80,35 @@ public class CarrosServletGSON extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		try {
+			Carro carro = getCarroFromRequest(request);
+			carroService.save(carro);
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(carro);
+			ServletUtil.writeJSON(response, json);
+			
+		} catch (Exception e) {
+			response.sendError(404, "não foi possivel realizar a ação");
+		}
+		
+	}
+
+	private Carro getCarroFromRequest(HttpServletRequest request) throws NumberFormatException, Exception {
+		Carro carro = new Carro();
+		String id = request.getParameter("id");
+		if (id != null) {
+				carro = carroService.getCarro(Long.parseLong(id));
+		}
+		carro.setNome(request.getParameter("nome"));
+		carro.setDescricao(request.getParameter("descricao"));
+		carro.setUrlFoto(request.getParameter("urlfoto"));
+		carro.setUrlVideo(request.getParameter("urlVideo"));
+		carro.setLatitude(request.getParameter("latitude"));
+		carro.setLongitude(request.getParameter("longitude"));
+		carro.setTipo(request.getParameter("tipo"));
+		return carro;
+		
 	}
 
 }
