@@ -10,12 +10,12 @@ import java.util.List;
 public class CarroService {
 	private CarroDAO db = new CarroDAO();
 	
-	public List<Carro> getCarros() throws Exception{
+	public List<Carro> getCarros(){
 		try {
 			List<Carro> carros = this.db.getCarros();
 			return carros;
 		} catch (Exception e) {
-			throw new Exception(e.getMessage()); 
+			return null; 
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class CarroService {
 		}
 	}
 	
-	public boolean save(Carro carro) throws Exception{
+	public boolean save(Carro carro){
 		try {
 			this.db.save(carro);
 			return true;
