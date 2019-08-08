@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import br.com.pessoa.domain.CarroService;
 import br.com.pessoa.domain.ListaCarros;
 import br.com.pessoa.domain.Carro;
@@ -18,21 +21,21 @@ import br.com.pessoa.util.ServletUtil;
 /**
  * Servlet implementation class CarrosServlet
  */
-@WebServlet("/carrosEmJSON")
-public class CarrosServletJSON extends HttpServlet {
+@WebServlet("/carrosEmGSON")
+public class CarrosServletGSON extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CarroService carroService = new CarroService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CarrosServletJSON() {
+    public CarrosServletGSON() {
         super();
         
     }
 
 	/**
-	 * O GET de /carrosEmXML retorna uma lista de carros em JSON criada usando o JAXBUtil 
+	 * O GET de /carrosEmGSON retorna uma lista de carros em JSON criada usando o Gson 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,9 +43,13 @@ public class CarrosServletJSON extends HttpServlet {
 			List<Carro> carros = carroService.getCarros();
 			ListaCarros lista = new ListaCarros();
 			lista.setCarros(carros);
-			String carrosString = carros.toString();
-			String json = JAXBUtil.toJSON(lista);
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(lista);
 			ServletUtil.writeJSON(response, json);
+			
+			// O uso do Gson pode também trazer do Json para o objeto 
+			// Gson gson = new Gson();
+			// List<Carro> lista = (List<Carro> gson.fromJson(json, ListaCarros.class);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
