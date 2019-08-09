@@ -39,13 +39,15 @@ public class CarrosResource {
 	@GET
 	@Path("/tipo/{tipo}")
 	public List<Carro> getCarrosPorTipo(@PathParam("tipo") String tipo) throws Exception {		
+		System.out.println(tipo);
 		List<Carro> carros = carroService.findByTipo(tipo);
 		return carros;		
 	}
 	
 	@GET
 	@Path("/nome/{nome}")
-	public List<Carro> getCarrosPorNome(@PathParam("nome") String nome) throws Exception {		
+	public List<Carro> getCarrosPorNome(@PathParam("nome") String nome) throws Exception {
+		System.out.println(nome);
 		List<Carro> carros = carroService.findByName(nome);
 		return carros;		
 	}
